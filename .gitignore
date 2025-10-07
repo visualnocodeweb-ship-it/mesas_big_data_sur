@@ -1,0 +1,5 @@
+# Ignore all Excel files
+*.xlsx
+
+# Do not ignore the specific one we need
+!usuarios_2025-10-07 (2).xlsx
