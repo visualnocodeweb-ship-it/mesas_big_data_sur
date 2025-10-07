@@ -20,6 +20,8 @@ for index, row in df.iterrows():
     })
 chart_data_json = json.dumps(chart_data)
 
+total_afinidades = df["Afinidades"].sum()
+
 bar_chart_height = len(df) * 25
 
 # --- Ranking Table ---
@@ -53,6 +55,9 @@ html.append("<p><strong>Giuliana marchione</strong> - Cantidad de Afinidades: <s
 html.append("</div>")
 html.append("<div class=\"mt-5 ranking-container\">")
 html.append(ranking_html)
+html.append("</div>")
+html.append("<div class=\"mt-3 text-center\">")
+html.append(f"<p><strong>Total de Afinidades zona sur:</strong> <strong>{total_afinidades}</strong></p>")
 html.append("</div>")
 
 html.append("<h2>Mapa de Afinidades</h2>")
