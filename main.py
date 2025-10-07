@@ -41,6 +41,7 @@ html.append(".chart-container { position: relative; margin: auto; width: 80vw; }
 html.append(".treemap-container { height: 70vh; }")
 html.append(".ranking-container { max-width: 600px; margin: auto; font-size: 0.9rem; }")
 html.append(".ranking-container table { text-align: center; }")
+html.append(".ranking-container table th { text-align: center; }")
 html.append("h2 { text-align: center; margin-top: 40px; }")
 html.append("</style></head><body><div class=\"container\">")
 html.append("<h1>Jefes de Mesa zona Sur</h1>")
