@@ -85,7 +85,28 @@ var treemapChart = new Chart(treemapCtx, {
     data: { datasets: [{
         label: 'Afinidades', tree: originalData, key: 'value', groups: ['name'],
         backgroundColor: 'rgba(54, 162, 235, 0.5)', borderColor: 'rgba(54, 162, 235, 1)', borderWidth: 1,
-        labels: { display: false }
+            labels: {
+                display: true,
+                color: 'black',
+                font: { size: 10, weight: 'normal' },
+                align: 'center',
+                position: 'center',
+                formatter: (ctx) => {
+                    if (!ctx.raw) { return ''; }
+                    const w = ctx.raw.w;
+                    const h = ctx.raw.h;
+                    if (w > 100 && h > 50) {
+                        const nameParts = ctx.raw.g.split(' ');
+                        if (nameParts.length > 1) {
+                            const firstName = nameParts[0];
+                            const restOfName = nameParts.slice(1).join(' ');
+                            return [firstName, restOfName];
+                        }
+                        return ctx.raw.g;
+                    }
+                    return '';
+                }
+            }
     }]}, 
     options: {
         maintainAspectRatio: false,
