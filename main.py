@@ -48,6 +48,7 @@ html.append('<div class="form-group mt-4"><label for="searchInput"><strong>Agent
 html.append("<div class=\"mt-3 text-center\">")
 html.append("<p><strong>Enlace Politico:</strong> Gustavo Capiet - Cantidad de Afinidades: <strong>205</strong></p>")
 html.append("<p><strong>Enlace Tecnico 1:</strong> Adriana Thuman - Cantidad de Afinidades: <strong>107</strong></p>")
+html.append("<p><strong>Giuliana marchione</strong> - Cantidad de Afinidades: <strong>187</strong></p>")
 html.append("</div>")
 html.append("<div class=\"mt-5 ranking-container\">")
 html.append(ranking_html)
