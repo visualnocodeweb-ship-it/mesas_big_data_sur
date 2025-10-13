@@ -75,7 +75,14 @@ h2 { text-align: center; margin-top: 40px; }
 </div>
 <div class="mt-3 text-center">
 <p><strong>Total de Afinidades zona sur:</strong> <strong>3119</strong></p>
+<p><strong>Total votantes del padron:</strong> <strong>33.391</strong></p>
 </div>
+
+<h2>Porcentaje de Afinidades</h2>
+<div class="chart-container" style="height: 50vh; margin-top: 20px;">
+    <canvas id="pieChart"></canvas>
+</div>
+
 <h2>Mapa de Afinidades</h2>
 <div class="chart-container treemap-container mt-4">
 <canvas id="treemapChart"></canvas>
@@ -147,5 +154,54 @@ searchInput.addEventListener('keyup', (e) => {
     const newBarHeight = filteredData.length * 25;
     barChartContainer.style.height = `${newBarHeight}px`;
     barChart.update();
+});
+
+var pieCtx = document.getElementById('pieChart').getContext('2d');
+var pieChart = new Chart(pieCtx, {
+    type: 'pie',
+    data: {
+        labels: ['Afinidades Zona Sur', 'Resto del Padrón'],
+        datasets: [{
+            label: 'Distribución de Afinidades',
+            data: [3119, 33391 - 3119],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: 'Porcentaje de Afinidades sobre el Padrón'
+            },
+            datalabels: {
+                formatter: (value, ctx) => {
+                    let sum = 0;
+                    let dataArr = ctx.chart.data.datasets[0].data;
+                    dataArr.map(data => {
+                        sum += data;
+                    });
+                    let percentage = (value*100 / sum).toFixed(2)+"%";
+                    return percentage + ' (' + value + ')';
+                },
+                color: '#000',
+                font: {
+                    size: '16'
+                }
+            }
+        }
+    }
 });
 </script></body></html>
