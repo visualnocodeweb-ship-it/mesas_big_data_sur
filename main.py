@@ -5,7 +5,7 @@ import json
 
 # Data prep
 try:
-    df = pd.read_excel("C:\\Users\\SIMT\\Desktop\\Mesas\\usuarios_2025-10-07 (2).xlsx")
+    df = pd.read_excel("usuarios_2025-10-13 (1).xlsx")
 except FileNotFoundError:
     print("Error: No se encontr\u00f3 el archivo de Excel.")
     exit()
@@ -50,7 +50,7 @@ html.append("<h1>Jefes de Mesa zona Sur</h1>")
 html.append('<div class="form-group mt-4"><label for="searchInput"><strong>Agentes</strong></label><input type="text" id="searchInput" class="form-control" placeholder="Buscar agente..."></div>')
 html.append("<div class=\"mt-3 text-center\">")
 html.append("<p><strong>Enlace Politico:</strong> Gustavo Capiet - Cantidad de Afinidades: <strong>205</strong></p>")
-html.append("<p><strong>Enlace Tecnico 1:</strong> Adriana Thuman - Cantidad de Afinidades: <strong>107</strong></p>")
+html.append("<p><strong>Enlace Tecnico 1:</strong> Adriana Thuman - Cantidad de Afinidades: <strong>131</strong></p>")
 html.append("<p><strong>Giuliana marchione</strong> - Cantidad de Afinidades: <strong>187</strong></p>")
 html.append("</div>")
 html.append("<div class=\"mt-5 ranking-container\">")
@@ -148,7 +148,7 @@ html.append("</script></body></html>")
 final_html = '\n'.join(html)
 
 # Write file
-file_path = "C:\\Users\\SIMT\\Desktop\\Mesas\\index.html"
+file_path = "index.html"
 with open(file_path, "w", encoding="utf-8") as f:
     f.write(final_html)
 
