@@ -5,9 +5,14 @@ import json
 
 # Data prep
 try:
-    df = pd.read_excel("usuarios_2025-10-13 (1).xlsx")
+    df = pd.read_excel("usuarios_2025-10-17.xlsx")
 except FileNotFoundError:
-    print("Error: No se encontr\u00f3 el archivo de Excel.")
+    print("Error: No se encontró el archivo de Excel.")
+    exit()
+
+# --- Check for 'Localidad' column ---
+if 'Localidad' not in df.columns:
+    print("Error: La columna 'Localidad' no se encontró en el archivo de Excel.")
     exit()
 
 # --- Prepare data ---
@@ -28,14 +33,32 @@ bar_chart_height = len(df) * 25
 top_10 = df.sort_values(by="Afinidades", ascending=False).head(10)
 ranking_html = "<h2>Ranking de Afinidades (Top 10)</h2>" + top_10[["Nombre Completo", "Afinidades"]].to_html(index=False, classes='table table-striped table-bordered table-hover').replace('<thead>', '<thead class="thead-dark">')
 
+
+# --- Group by Localidad ---
+df['Localidad'] = df['Localidad'].fillna('Sin Localidad')
+localidad_summary = df.groupby('Localidad').agg(
+    Personas=('Localidad', 'size'),
+    Afinidades=('Afinidades', 'sum')
+).reset_index()
+localidad_html = "<h2>Resumen por Localidad</h2>" + localidad_summary.to_html(index=False, classes='table table-striped table-bordered table-hover').replace('<thead>', '<thead class="thead-dark">')
+
+# --- Detailed Table by Localidad ---
+detailed_localidad_html = "<h2>Detalle por Localidad</h2>"
+for localidad, group in df.groupby('Localidad'):
+    detailed_localidad_html += f"<h3>{localidad}</h3>"
+    # Sort by 'Afinidades' within the group
+    group_sorted = group.sort_values(by='Afinidades', ascending=False)
+    detailed_localidad_html += group_sorted[['Nombre Completo', 'Afinidades']].to_html(index=False, classes='table table-striped table-bordered table-hover').replace('<thead>', '<thead class="thead-dark">')
+
+
 # --- Build HTML ---
 html = []
 html.append("<!DOCTYPE html><html><head>")
 html.append("<title>Dashboard de Afinidades</title>")
-html.append("<script src=\"https://cdn.jsdelivr.net/npm/chart.js\"></script>")
-html.append("<script src=\"https://cdn.jsdelivr.net/npm/chartjs-chart-treemap@2.3.0/dist/chartjs-chart-treemap.min.js\"></script>")
-html.append("<script src=\"https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0\"></script>")
-html.append("<link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css\">")
+html.append('<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>')
+html.append('<script src="https://cdn.jsdelivr.net/npm/chartjs-chart-treemap@2.3.0/dist/chartjs-chart-treemap.min.js"></script>')
+html.append('<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>')
+html.append('<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">')
 html.append("<style>")
 html.append("body { padding: 20px; }")
 html.append(".container { margin-top: 20px; }")
@@ -45,29 +68,38 @@ html.append(".ranking-container { max-width: 600px; margin: auto; font-size: 0.9
 html.append(".ranking-container table { text-align: center; }")
 html.append(".ranking-container table th { text-align: center; }")
 html.append("h2 { text-align: center; margin-top: 40px; }")
-html.append("</style></head><body><div class=\"container\">")
+html.append("</style></head><body><div class='container'>")
 html.append("<h1>Jefes de Mesa zona Sur</h1>")
 html.append('<div class="form-group mt-4"><label for="searchInput"><strong>Agentes</strong></label><input type="text" id="searchInput" class="form-control" placeholder="Buscar agente..."></div>')
-html.append("<div class=\"mt-3 text-center\">")
+html.append('<div class="mt-3 text-center">')
 html.append("<p><strong>Enlace Politico:</strong> Gustavo Capiet - Cantidad de Afinidades: <strong>205</strong></p>")
 html.append("<p><strong>Enlace Tecnico 1:</strong> Adriana Thuman - Cantidad de Afinidades: <strong>131</strong></p>")
 html.append("<p><strong>Giuliana marchione</strong> - Cantidad de Afinidades: <strong>187</strong></p>")
 html.append("</div>")
-html.append("<div class=\"mt-5 ranking-container\">")
+html.append('<div class="mt-5 ranking-container">')
 html.append(ranking_html)
 html.append("</div>")
-html.append("<div class=\"mt-3 text-center\">")
-html.append(f"<p><strong>Total de Afinidades zona sur:</strong> <strong>{total_afinidades}</strong></p>")
+html.append('<div class="mt-3 text-center">')
+html.append(f'<p><strong>Total de Afinidades zona sur:</strong> <strong>{total_afinidades}</strong></p>')
 html.append("</div>")
 
 html.append("<h2>Mapa de Afinidades</h2>")
-html.append("<div class=\"chart-container treemap-container mt-4\">")
-html.append("<canvas id=\"treemapChart\"></canvas>")
+html.append('<div class="chart-container treemap-container mt-4">')
+html.append('<canvas id="treemapChart"></canvas>')
 html.append("</div>")
 html.append("<h2>Detalle de Afinidades</h2>")
 html.append(f'<div style="height: 800px; overflow-y: auto; border: 1px solid #ccc;"><div id="barChartContainer" class="chart-container mt-4" style="height:{bar_chart_height}px;">')
-html.append("<canvas id=\"barChart\"></canvas>")
+html.append('<canvas id="barChart"></canvas>')
 html.append("</div></div>")
+
+html.append('<div class="mt-5 ranking-container">')
+html.append(localidad_html)
+html.append("</div>")
+
+html.append('<div class="mt-5 ranking-container">')
+html.append(detailed_localidad_html)
+html.append("</div>")
+
 html.append("</div><script>")
 
 # --- JS Generation ---

@@ -1,0 +1,12 @@
+{
+  "name": "mesas-elecc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "vercel-build": "pip install -r requirements.txt && py main.py"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
