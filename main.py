@@ -5,9 +5,11 @@ import json
 
 # Data prep
 try:
-    df = pd.read_excel("usuarios_2025-10-17 (1).xlsx")
-except FileNotFoundError:
-    print("Error: No se encontró el archivo de Excel.")
+    df1 = pd.read_excel("usuarios_2025-10-17 (1).xlsx")
+    df2 = pd.read_excel("usuarios_2025-10-17 (2).xlsx")
+    df = pd.concat([df1, df2], ignore_index=True)
+except FileNotFoundError as e:
+    print(f"Error: No se encontró el archivo de Excel: {e.filename}")
     exit()
 
 # --- Check for 'Localidad' column ---

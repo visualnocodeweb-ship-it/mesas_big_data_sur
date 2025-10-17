@@ -2,4 +2,5 @@
 *.xlsx
 
 # Do not ignore the specific one we need
-!usuarios_2025-10-17.xlsx
+!usuarios_2025-10-17 (1).xlsx
+!usuarios_2025-10-17 (2).xlsx
