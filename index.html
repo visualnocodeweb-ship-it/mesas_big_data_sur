@@ -13,6 +13,10 @@ body { padding: 20px; }
 .ranking-container table { text-align: center; }
 .ranking-container table th { text-align: center; }
 h2 { text-align: center; margin-top: 40px; }
+details { border: 1px solid #aaa; border-radius: 4px; padding: .5em .5em 0; margin-top: 1em; }
+summary { font-weight: bold; margin: -.5em -.5em 0; padding: .5em; cursor: pointer; }
+details[open] { padding: .5em; }
+details[open] summary { border-bottom: 1px solid #aaa; margin-bottom: .5em; }
 </style></head><body><div class='container'>
 <h1>Jefes de Mesa zona Sur</h1>
 <div class="form-group mt-4"><label for="searchInput"><strong>Agentes</strong></label><input type="text" id="searchInput" class="form-control" placeholder="Buscar agente..."></div>
@@ -158,7 +162,7 @@ h2 { text-align: center; margin-top: 40px; }
 </table>
 </div>
 <div class="mt-5 ranking-container">
-<h2>Detalle por Localidad</h2><h3>CHAPELCO GRANDE</h3><table border="1" class="dataframe table table-striped table-bordered table-hover">
+<h2>Detalle por Localidad</h2><details><summary>CHAPELCO GRANDE</summary><table border="1" class="dataframe table table-striped table-bordered table-hover">
   <thead class="thead-dark">
     <tr style="text-align: right;">
       <th>Nombre Completo</th>
@@ -171,7 +175,7 @@ h2 { text-align: center; margin-top: 40px; }
       <td>0</td>
     </tr>
   </tbody>
-</table><h3>JUNIN DE LOS ANDES</h3><table border="1" class="dataframe table table-striped table-bordered table-hover">
+</table></details><details><summary>JUNIN DE LOS ANDES</summary><table border="1" class="dataframe table table-striped table-bordered table-hover">
   <thead class="thead-dark">
     <tr style="text-align: right;">
       <th>Nombre Completo</th>
@@ -376,7 +380,7 @@ h2 { text-align: center; margin-top: 40px; }
       <td>0</td>
     </tr>
   </tbody>
-</table><h3>LAGO LOLOG</h3><table border="1" class="dataframe table table-striped table-bordered table-hover">
+</table></details><details><summary>LAGO LOLOG</summary><table border="1" class="dataframe table table-striped table-bordered table-hover">
   <thead class="thead-dark">
     <tr style="text-align: right;">
       <th>Nombre Completo</th>
@@ -397,7 +401,7 @@ h2 { text-align: center; margin-top: 40px; }
       <td>0</td>
     </tr>
   </tbody>
-</table><h3>LAGO MELIQUINA</h3><table border="1" class="dataframe table table-striped table-bordered table-hover">
+</table></details><details><summary>LAGO MELIQUINA</summary><table border="1" class="dataframe table table-striped table-bordered table-hover">
   <thead class="thead-dark">
     <tr style="text-align: right;">
       <th>Nombre Completo</th>
@@ -410,7 +414,7 @@ h2 { text-align: center; margin-top: 40px; }
       <td>0</td>
     </tr>
   </tbody>
-</table><h3>NEUQUEN</h3><table border="1" class="dataframe table table-striped table-bordered table-hover">
+</table></details><details><summary>NEUQUEN</summary><table border="1" class="dataframe table table-striped table-bordered table-hover">
   <thead class="thead-dark">
     <tr style="text-align: right;">
       <th>Nombre Completo</th>
@@ -427,7 +431,7 @@ h2 { text-align: center; margin-top: 40px; }
       <td>0</td>
     </tr>
   </tbody>
-</table><h3>NEUQUEN CAPITAL</h3><table border="1" class="dataframe table table-striped table-bordered table-hover">
+</table></details><details><summary>NEUQUEN CAPITAL</summary><table border="1" class="dataframe table table-striped table-bordered table-hover">
   <thead class="thead-dark">
     <tr style="text-align: right;">
       <th>Nombre Completo</th>
@@ -440,7 +444,7 @@ h2 { text-align: center; margin-top: 40px; }
       <td>0</td>
     </tr>
   </tbody>
-</table><h3>PILO LIL</h3><table border="1" class="dataframe table table-striped table-bordered table-hover">
+</table></details><details><summary>PILO LIL</summary><table border="1" class="dataframe table table-striped table-bordered table-hover">
   <thead class="thead-dark">
     <tr style="text-align: right;">
       <th>Nombre Completo</th>
@@ -465,7 +469,7 @@ h2 { text-align: center; margin-top: 40px; }
       <td>0</td>
     </tr>
   </tbody>
-</table><h3>PLOTTIER</h3><table border="1" class="dataframe table table-striped table-bordered table-hover">
+</table></details><details><summary>PLOTTIER</summary><table border="1" class="dataframe table table-striped table-bordered table-hover">
   <thead class="thead-dark">
     <tr style="text-align: right;">
       <th>Nombre Completo</th>
@@ -478,7 +482,7 @@ h2 { text-align: center; margin-top: 40px; }
       <td>0</td>
     </tr>
   </tbody>
-</table><h3>SAN MARTIN DE LOS ANDES</h3><table border="1" class="dataframe table table-striped table-bordered table-hover">
+</table></details><details><summary>SAN MARTIN DE LOS ANDES</summary><table border="1" class="dataframe table table-striped table-bordered table-hover">
   <thead class="thead-dark">
     <tr style="text-align: right;">
       <th>Nombre Completo</th>
@@ -1303,7 +1307,7 @@ h2 { text-align: center; margin-top: 40px; }
       <td>0</td>
     </tr>
   </tbody>
-</table><h3>SENILLOSA</h3><table border="1" class="dataframe table table-striped table-bordered table-hover">
+</table></details><details><summary>SENILLOSA</summary><table border="1" class="dataframe table table-striped table-bordered table-hover">
   <thead class="thead-dark">
     <tr style="text-align: right;">
       <th>Nombre Completo</th>
@@ -1316,7 +1320,7 @@ h2 { text-align: center; margin-top: 40px; }
       <td>0</td>
     </tr>
   </tbody>
-</table><h3>VILLA LA ANGOSTURA</h3><table border="1" class="dataframe table table-striped table-bordered table-hover">
+</table></details><details><summary>VILLA LA ANGOSTURA</summary><table border="1" class="dataframe table table-striped table-bordered table-hover">
   <thead class="thead-dark">
     <tr style="text-align: right;">
       <th>Nombre Completo</th>
@@ -1553,7 +1557,7 @@ h2 { text-align: center; margin-top: 40px; }
       <td>0</td>
     </tr>
   </tbody>
-</table><h3>VILLA TRAFUL</h3><table border="1" class="dataframe table table-striped table-bordered table-hover">
+</table></details><details><summary>VILLA TRAFUL</summary><table border="1" class="dataframe table table-striped table-bordered table-hover">
   <thead class="thead-dark">
     <tr style="text-align: right;">
       <th>Nombre Completo</th>
@@ -1582,7 +1586,7 @@ h2 { text-align: center; margin-top: 40px; }
       <td>0</td>
     </tr>
   </tbody>
-</table>
+</table></details>
 </div>
 </div><script>
 Chart.register(ChartDataLabels);

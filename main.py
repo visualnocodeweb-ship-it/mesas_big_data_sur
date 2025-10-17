@@ -45,10 +45,12 @@ localidad_html = "<h2>Resumen por Localidad</h2>" + localidad_summary.to_html(in
 # --- Detailed Table by Localidad ---
 detailed_localidad_html = "<h2>Detalle por Localidad</h2>"
 for localidad, group in df.groupby('Localidad'):
-    detailed_localidad_html += f"<h3>{localidad}</h3>"
+    detailed_localidad_html += "<details>"
+    detailed_localidad_html += f"<summary>{localidad}</summary>"
     # Sort by 'Afinidades' within the group
     group_sorted = group.sort_values(by='Afinidades', ascending=False)
     detailed_localidad_html += group_sorted[['Nombre Completo', 'Afinidades']].to_html(index=False, classes='table table-striped table-bordered table-hover').replace('<thead>', '<thead class="thead-dark">')
+    detailed_localidad_html += "</details>"
 
 
 # --- Build HTML ---
@@ -68,6 +70,10 @@ html.append(".ranking-container { max-width: 600px; margin: auto; font-size: 0.9
 html.append(".ranking-container table { text-align: center; }")
 html.append(".ranking-container table th { text-align: center; }")
 html.append("h2 { text-align: center; margin-top: 40px; }")
+html.append("details { border: 1px solid #aaa; border-radius: 4px; padding: .5em .5em 0; margin-top: 1em; }")
+html.append("summary { font-weight: bold; margin: -.5em -.5em 0; padding: .5em; cursor: pointer; }")
+html.append("details[open] { padding: .5em; }")
+html.append("details[open] summary { border-bottom: 1px solid #aaa; margin-bottom: .5em; }")
 html.append("</style></head><body><div class='container'>")
 html.append("<h1>Jefes de Mesa zona Sur</h1>")
 html.append('<div class="form-group mt-4"><label for="searchInput"><strong>Agentes</strong></label><input type="text" id="searchInput" class="form-control" placeholder="Buscar agente..."></div>')
