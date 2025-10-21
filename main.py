@@ -108,12 +108,40 @@ html.append('<div class="mt-5 ranking-container">')
 html.append(detailed_localidad_html)
 html.append("</div>")
 
+# --- Interactive Referentes de Mesa ---
+referentes_data = {}
+for localidad, group in df.groupby('Localidad'):
+    referentes_data[localidad] = group.sort_values(by='Nombre Completo')[['Nombre Completo', 'Mesa']].to_dict('records')
+
+referentes_data_json = json.dumps(referentes_data)
+
+interactive_referentes_html = """
+<h2>Referentes de Mesa</h2>
+<div class="form-group">
+    <label for="localidadSelect">Selecciona una Localidad:</label>
+    <select id="localidadSelect" class="form-control"></select>
+</div>
+<div class="form-group">
+    <label for="personaSelect">Selecciona una Persona:</label>
+    <select id="personaSelect" class="form-control"></select>
+</div>
+<div class="form-group">
+    <label>Mesa:</label>
+    <p id="mesaDisplay" class="form-control-static"></p>
+</div>
+"""
+
+html.append('<div class="mt-5 ranking-container">')
+html.append(interactive_referentes_html)
+html.append("</div>")
+
 html.append("</div><script>")
 
 # --- JS Generation ---
 js = []
 js.append("Chart.register(ChartDataLabels);")
 js.append(f"const originalData = {chart_data_json};")
+js.append(f"const referentesData = {referentes_data_json};")
 
 # Treemap JS
 js.append("var treemapCtx = document.getElementById('treemapChart').getContext('2d');")
@@ -181,6 +209,64 @@ js.append("    const newBarHeight = filteredData.length * 25;")
 js.append("    barChartContainer.style.height = `${newBarHeight}px`;")
 js.append("    barChart.update();")
 js.append("});")
+
+# --- Interactive Referentes Logic ---
+js.append("""
+const localidadSelect = document.getElementById('localidadSelect');
+const personaSelect = document.getElementById('personaSelect');
+const mesaDisplay = document.getElementById('mesaDisplay');
+
+// Populate Localidad dropdown
+const localidades = Object.keys(referentesData).sort();
+const option = document.createElement('option');
+option.value = "";
+option.textContent = "Selecciona una localidad";
+localidadSelect.appendChild(option);
+localidades.forEach(localidad => {
+    const option = document.createElement('option');
+    option.value = localidad;
+    option.textContent = localidad;
+    localidadSelect.appendChild(option);
+});
+
+// Function to update persona dropdown
+function updatePersonas() {
+    const selectedLocalidad = localidadSelect.value;
+    personaSelect.innerHTML = '<option value="">Selecciona una persona</option>'; // Clear previous options
+    mesaDisplay.textContent = '';
+
+    if (selectedLocalidad) {
+        const personas = referentesData[selectedLocalidad];
+        personas.forEach(persona => {
+            const option = document.createElement('option');
+            option.value = persona['Nombre Completo'];
+            option.textContent = persona['Nombre Completo'];
+            personaSelect.appendChild(option);
+        });
+    }
+}
+
+// Function to update mesa display
+function updateMesa() {
+    const selectedLocalidad = localidadSelect.value;
+    const selectedPersona = personaSelect.value;
+    mesaDisplay.textContent = '';
+
+    if (selectedLocalidad && selectedPersona) {
+        const personaData = referentesData[selectedLocalidad].find(p => p['Nombre Completo'] === selectedPersona);
+        if (personaData) {
+            mesaDisplay.textContent = personaData['Mesa'];
+        }
+    }
+}
+
+// Event listeners
+localidadSelect.addEventListener('change', updatePersonas);
+personaSelect.addEventListener('change', updateMesa);
+
+// Initial population
+updatePersonas();
+""")
 
 html.append('\n'.join(js))
 html.append("</script></body></html>")
