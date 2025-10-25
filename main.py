@@ -5,8 +5,8 @@ import json
 
 # Data prep
 try:
-    df1 = pd.read_excel("usuarios_2025-10-22.xlsx")
-    df2 = pd.read_excel("usuarios_2025-10-22 (1).xlsx")
+    df1 = pd.read_excel("usuarios_2025-10-25.xlsx")
+    df2 = pd.read_excel("usuarios_2025-10-25 (1).xlsx")
     df = pd.concat([df1, df2], ignore_index=True)
 except FileNotFoundError as e:
     print(f"Error: No se encontró el archivo de Excel: {e.filename}")
@@ -81,7 +81,7 @@ html.append("<h1>Jefes de Mesa zona Sur</h1>")
 html.append('<div class="form-group mt-4"><label for="searchInput"><strong>Agentes</strong></label><input type="text" id="searchInput" class="form-control" placeholder="Buscar agente..."></div>')
 html.append('<div class="mt-3 text-center">')
 html.append("<p><strong>Enlace Politico:</strong> Gustavo Capiet - Cantidad de Afinidades: <strong>301</strong></p>")
-html.append("<p><strong>Enlace Tecnico 1:</strong> Adriana Thuman - Cantidad de Afinidades: <strong>175</strong></p>")
+html.append("<p><strong>Enlace Tecnico 1:</strong> Adriana Thuman - Cantidad de Afinidades: <strong>186</strong></p>")
 html.append("<p><strong>Giuliana marchione</strong> - Cantidad de Afinidades: <strong>217</strong></p>")
 html.append("</div>")
 html.append('<div class="mt-5 ranking-container">')
